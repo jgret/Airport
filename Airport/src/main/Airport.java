@@ -10,25 +10,25 @@ public class Airport extends Model {
 	 * Queue for people on first Terminal waiting for a Bus to the car rent
 	 */
 
-	protected ProcessQueue<Human> terminalQueue1;
+	protected ProcessQueue<Person> terminalQueue1;
 
 	/**
 	 * Queue for people on second Terminal waiting for a Bus to the car rent
 	 */
 	
-	protected ProcessQueue<Human> terminalQueue2;
+	protected ProcessQueue<Person> terminalQueue2;
 
 	/**
 	 * Queue for people driving in the Bus
 	 */
 	
-	protected ArrayList<Human> busQueue;
+	protected ArrayList<Person> busQueue;
 	
 	/**
 	 * people waiting at the car rent for a car
 	 */
 
-	protected ProcessQueue<Human> carRentQueue;
+	protected ProcessQueue<Person> carRentQueue;
 	
 	/**
 	 * cars waiting at the car rent for people
