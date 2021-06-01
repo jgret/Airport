@@ -1,8 +1,9 @@
 package main;
 
+import desmoj.core.simulator.Experiment;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.ProcessQueue;
-import java.util.ArrayList;
+import desmoj.core.simulator.TimeInstant;
 
 public class Airport extends Model {
 	
@@ -51,7 +52,13 @@ public class Airport extends Model {
 	protected int busSize = 20;
 
 	protected int busMaxWait = 5;
-
+	
+	protected int plainSize = 80;
+	
+	protected TerminalPersonGenerator terminalPersonGenerator1;
+	
+	protected TerminalPersonGenerator terminalPersonGenerator2;
+	
 	public Airport(Model owner, String name, boolean showInReport, boolean showInTrace) {
 		super(owner, name, showInReport, showInTrace);
 	}
@@ -63,7 +70,10 @@ public class Airport extends Model {
 
 	@Override
 	public void doInitialSchedules() {
-
+		terminalPersonGenerator1 = new TerminalPersonGenerator(this, "gen1", true, terminalQueue1);
+		terminalPersonGenerator1.schedule();
+		terminalPersonGenerator2 = new TerminalPersonGenerator(this, "gen2", true, terminalQueue2);
+		terminalPersonGenerator2.schedule();
 	}
 
 	@Override
@@ -78,6 +88,53 @@ public class Airport extends Model {
 		
 		bus = new Bus(this, "bus", true, true);
 		bus.activate();
+	}
+	
+	public static void main(java.lang.String[] args) {
+
+		// make a new experiment
+		// Use as experiment name a OS filename compatible string!!
+		// Otherwise your simulation will crash!!
+        Experiment.setEpsilon(java.util.concurrent.TimeUnit.MILLISECONDS);
+        Experiment.setReferenceUnit(java.util.concurrent.TimeUnit.SECONDS);
+        Experiment experiment = new Experiment("Airport Model");
+
+		// make a new model
+		// null as first parameter because it is the main model and has no mastermodel
+		Airport vc_1st_p_Model =
+			new Airport(
+				null,
+				"Airport Model",
+				true,
+				false);
+
+		// connect Experiment and Model
+		vc_1st_p_Model.connectToExperiment(experiment);
+
+        // set trace
+		experiment.tracePeriod(new TimeInstant(0), new TimeInstant(100));
+
+		// now set the time this simulation should stop at 
+		// let him work 1500 Minutes
+		experiment.stop(new TimeInstant(1500));
+		experiment.setShowProgressBar(false);
+
+		
+		// start the Experiment with start time 0.0
+		experiment.start();
+
+		// --> now the simulation is running until it reaches its ending criteria
+		// ...
+		// ...
+		// <-- after reaching ending criteria, the main thread returns here
+
+		
+		// print the report about the already existing reporters into the report file
+		experiment.report();
+
+		// stop all threads still alive and close all output files
+		experiment.finish();
+		
 	}
 
 }
