@@ -2,7 +2,7 @@ package main;
 
 public class FifoQueue<T> {
 
-	public FifoQueue() {
+	public FifoQueue(int size) {
 		
 	}
 	
