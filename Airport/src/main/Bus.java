@@ -3,25 +3,93 @@ package main;
 import co.paralleluniverse.fibers.SuspendExecution;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
+import desmoj.core.simulator.TimeInstant;
+import desmoj.core.simulator.TimeSpan;
 
 public class Bus extends SimProcess {
 
-    private int size;
-    private int time;
+	private Airport airport;
 
+	public Bus(Model owner, String name, boolean repeating, boolean showInTrace) {
+		super(owner, name, repeating, showInTrace);
+		this.airport = (Airport) owner;
+	}
 
-    public Bus(Model owner, String name, boolean repeating, boolean showInTrace) {
-        super(owner, name, repeating, showInTrace);
-    }
+	@Override
+	public void lifeCycle() throws SuspendExecution {
 
-    public Bus(Model owner, String name, boolean showInTrace,int size,int waitingtime) {
-        super(owner, name, showInTrace);
-    }
+		while (true) {
 
-    @Override
-    public void lifeCycle() throws SuspendExecution {
+			TimeInstant start = presentTime();
+			TimeInstant ende = presentTime();
 
+			while (airport.busQueue.size() <= 0 && (ende.getTimeRounded() - start.getTimeRounded()) <= 300) {
 
+				if (!airport.peopleWaitForBus.isEmpty()) {
 
-    }
+					while (!airport.peopleWaitForBus.isEmpty() && airport.busQueue.size() < airport.busSize) {
+						Person person = airport.peopleWaitForBus.first();
+						airport.peopleWaitForBus.remove(person);
+
+						hold(new TimeSpan(2));
+
+						airport.busQueue.insert(person);
+					}
+					ende = presentTime();
+				}
+			}
+
+			hold(new TimeSpan(200));
+
+			// terminal 1
+
+			for (Person p : airport.busQueue) {
+				if (p.getDestination() == Airport.DEST_TERMINAL_1) {
+					airport.busQueue.remove(p);
+					hold(new TimeSpan(2));
+				}
+			}
+
+			while (!airport.terminalQueue1.isEmpty() && airport.busQueue.size() < airport.busSize) {
+				Person person = airport.terminalQueue1.first();
+				airport.terminalQueue1.remove(person);
+
+				hold(new TimeSpan(2));
+
+				airport.busQueue.insert(person);
+			}
+
+			// terminal 2
+
+			hold(new TimeSpan(20));
+
+			for (Person p : airport.busQueue) {
+				if (p.getDestination() == Airport.DEST_TERMINAL_2) {
+					airport.busQueue.remove(p);
+					hold(new TimeSpan(2));
+				}
+			}
+
+			while (!airport.terminalQueue2.isEmpty() && airport.busQueue.size() < airport.busSize) {
+				Person person = airport.terminalQueue2.first();
+				airport.terminalQueue2.remove(person);
+
+				hold(new TimeSpan(2));
+
+				airport.busQueue.insert(person);
+			}
+
+			hold(new TimeSpan(200));
+
+			// car rent
+
+			for (Person p : airport.busQueue) {
+//				airport.peopleWaitForBus.insert(p);
+				hold(new TimeSpan(2));
+			}
+			airport.busQueue.removeAll();
+
+		}
+
+	}
 }

@@ -5,8 +5,10 @@ import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
 
 public class Person extends SimProcess{
+	
+	private int destination;
 
-	public Person(Model owner, String name, boolean showInTrace) {
+	public Person(Model owner, String name, boolean showInTrace, int destination) {
 		super(owner, name, showInTrace);
 	}
 	
@@ -15,4 +17,8 @@ public class Person extends SimProcess{
 		
 	}
 
+	public int getDestination() {
+		return destination;
+	}
+	
 }
