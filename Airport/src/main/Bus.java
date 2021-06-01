@@ -3,7 +3,9 @@ package main;
 import co.paralleluniverse.fibers.SuspendExecution;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
+
 import desmoj.core.simulator.TimeInstant;
+
 import desmoj.core.simulator.TimeSpan;
 
 public class Bus extends SimProcess {
@@ -92,4 +94,5 @@ public class Bus extends SimProcess {
 		}
 
 	}
+
 }
