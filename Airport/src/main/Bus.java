@@ -37,8 +37,9 @@ public class Bus extends SimProcess {
 
 						airport.busQueue.insert(person);
 					}
-					ende = presentTime();
 				}
+				hold(new TimeSpan(1));
+				ende = presentTime();
 			}
 
 			hold(new TimeSpan(200));
@@ -48,6 +49,7 @@ public class Bus extends SimProcess {
 			for (Person p : airport.busQueue) {
 				if (p.getDestination() == Airport.DEST_TERMINAL_1) {
 					airport.busQueue.remove(p);
+					airport.dataPeopleTerminal1.update(++airport.totalTerminal1);
 					hold(new TimeSpan(2));
 				}
 			}
@@ -68,6 +70,7 @@ public class Bus extends SimProcess {
 			for (Person p : airport.busQueue) {
 				if (p.getDestination() == Airport.DEST_TERMINAL_2) {
 					airport.busQueue.remove(p);
+					airport.dataPeopleTerminal2.update(++airport.totalTerminal2);
 					hold(new TimeSpan(2));
 				}
 			}
@@ -75,7 +78,6 @@ public class Bus extends SimProcess {
 			while (!airport.terminalQueue2.isEmpty() && airport.busQueue.size() < airport.busSize) {
 				Person person = airport.terminalQueue2.first();
 				airport.terminalQueue2.remove(person);
-
 				hold(new TimeSpan(2));
 
 				airport.busQueue.insert(person);
@@ -87,6 +89,7 @@ public class Bus extends SimProcess {
 
 			for (Person p : airport.busQueue) {
 //				airport.peopleWaitForBus.insert(p);
+				airport.dataPeopleCarRent.update(++airport.totalCarRent);
 				hold(new TimeSpan(2));
 			}
 			airport.busQueue.removeAll();
