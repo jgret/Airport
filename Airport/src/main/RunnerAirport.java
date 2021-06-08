@@ -19,13 +19,13 @@ import desmoj.extensions.experimentation.util.ExperimentRunner;
  *
  * A demo experiment runner
  */
-public class Runner extends ExperimentRunner {
+public class RunnerAirport extends ExperimentRunner {
 	
-	public Runner() {
+	public RunnerAirport() {
 		super(); 
 	}
 	
-	public Runner(Airport m) {
+	public RunnerAirport(Airport m) {
 		super(m);
 	}
 	
@@ -33,21 +33,20 @@ public class Runner extends ExperimentRunner {
 	public SimRunListener[] createSimRunListeners(GraphicalObserverContext c) {
 		Airport model = (Airport)getModel();
 		TimeSeriesPlotter tp1 = new TimeSeriesPlotter("Terminal 1",c, model.dataPeopleTerminal1, 360,360);
-		tp1.addTimeSeries(model.dataPeopleTerminal2);
 //		HistogramPlotter hp = new HistogramPlotter("Truck Wait Times", c, model.waitTimeHistogram,"h", 360,360, 365,0);
-		return new SimRunListener[] {};
+		return new SimRunListener[] {tp1};
 	}
 	
 	@Override
 	public Map<String,AccessPoint> createParameters() {
 		Map<String,AccessPoint> pm = super.createParameters();
 		AccessUtil.setValue(pm, EXP_STOP_TIME, 1500.0);
-		AccessUtil.setValue(pm, EXP_TRACE_STOP, 100.0);
-		AccessUtil.setValue(pm, EXP_REF_UNIT, TimeUnit.MILLISECONDS);
+		AccessUtil.setValue(pm, EXP_TRACE_STOP, 1500.0);
+		AccessUtil.setValue(pm, EXP_REF_UNIT, TimeUnit.SECONDS);
 		return pm;
 	}
 	
 	public static void main(String[] args) throws Exception {
-		new ExperimentStarterApplication(Airport.class, Runner.class).setVisible(true);
+		new ExperimentStarterApplication(Airport.class, RunnerAirport.class).setVisible(true);
 	}
 }

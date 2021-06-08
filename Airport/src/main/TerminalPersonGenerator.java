@@ -15,7 +15,7 @@ public class TerminalPersonGenerator extends ExternalEvent {
 	private Random rnd;
 	public static final int AIRPLANE_MAX_SIZE = 120;
 	public static final int AIRPLANE_MINI_SIZE = 20;
-	
+
 	public TerminalPersonGenerator(Model owner, String name, boolean showInTrace, ProcessQueue<Person> dest) {
 		super(owner, name, showInTrace);
 		this.airport = (Airport) owner;
@@ -28,20 +28,15 @@ public class TerminalPersonGenerator extends ExternalEvent {
 		int airplanesize;
 		int waittime;
 
-		do{
-			waittime = rnd.nextInt(5);
-		}while (waittime > 0);
-
-		do{
-			airplanesize = rnd.nextInt(120);
-		}while(!(airplanesize <= AIRPLANE_MINI_SIZE && airplanesize >= AIRPLANE_MAX_SIZE));
+		waittime = rnd.nextInt(5) + 1;
+		airplanesize = rnd.nextInt(AIRPLANE_MAX_SIZE - AIRPLANE_MINI_SIZE) + AIRPLANE_MINI_SIZE;
 
 		for (int i = airplanesize; i < airport.plainSize; i++) {
 			destinantion.insert(new Person(airport, "Mensch", true, Airport.DEST_CAR_RENT));
 		}
-		
-		this.schedule(new TimeSpan(waittime * 60 * 60));
-		
+
+		this.schedule(new TimeSpan(waittime * 60));
+
 	}
 
 }

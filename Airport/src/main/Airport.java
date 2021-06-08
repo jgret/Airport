@@ -60,15 +60,17 @@ public class Airport extends Model {
 	
 	protected TerminalPersonGenerator terminalPersonGenerator2;
 	
-	protected int totalTerminal1;
+	protected CarPeopleGenerator carRentPersonGenerator;
+	
+	protected int totalTerminal1 = 0;
 	
 	protected TimeSeries dataPeopleTerminal1;
 	
-	protected int totalTerminal2;
+	protected int totalTerminal2 = 0;
 	
 	protected TimeSeries dataPeopleTerminal2;
 	
-	protected int totalCarRent;
+	protected int totalCarRent = 0;
 	
 	protected TimeSeries dataPeopleCarRent;
 	
@@ -91,6 +93,8 @@ public class Airport extends Model {
 		terminalPersonGenerator1.schedule();
 		terminalPersonGenerator2 = new TerminalPersonGenerator(this, "gen2", true, terminalQueue2);
 		terminalPersonGenerator2.schedule();
+		carRentPersonGenerator = new CarPeopleGenerator(this,"gen3", true, peopleWaitForBus);
+		carRentPersonGenerator.schedule();
 	}
 
 	@Override
