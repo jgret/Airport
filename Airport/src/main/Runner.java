@@ -43,7 +43,7 @@ public class Runner extends ExperimentRunner {
 		Map<String,AccessPoint> pm = super.createParameters();
 		AccessUtil.setValue(pm, EXP_STOP_TIME, 1500.0);
 		AccessUtil.setValue(pm, EXP_TRACE_STOP, 100.0);
-		AccessUtil.setValue(pm, EXP_REF_UNIT, TimeUnit.MINUTES);
+		AccessUtil.setValue(pm, EXP_REF_UNIT, TimeUnit.MILLISECONDS);
 		return pm;
 	}
 	

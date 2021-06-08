@@ -23,6 +23,7 @@ public class Bus extends SimProcess {
 		while (true) {
 
 			TimeInstant start = presentTime();
+
 			TimeInstant ende = presentTime();
 
 			while (airport.busQueue.size() <= 0 && (ende.getTimeRounded() - start.getTimeRounded()) <= 300) {
@@ -37,11 +38,14 @@ public class Bus extends SimProcess {
 
 						airport.busQueue.insert(person);
 					}
-					ende = presentTime();
 				}
+				hold(new TimeSpan(1));
+				ende = presentTime();
 			}
 
 			hold(new TimeSpan(200));
+
+			System.out.println("terminal 1");
 
 			// terminal 1
 
@@ -62,6 +66,8 @@ public class Bus extends SimProcess {
 			}
 
 			// terminal 2
+
+			System.out.println("terminal 2");
 
 			hold(new TimeSpan(20));
 
@@ -84,6 +90,8 @@ public class Bus extends SimProcess {
 			hold(new TimeSpan(200));
 
 			// car rent
+
+			System.out.println("autos mieten");
 
 			for (Person p : airport.busQueue) {
 //				airport.peopleWaitForBus.insert(p);
