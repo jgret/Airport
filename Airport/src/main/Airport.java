@@ -74,6 +74,8 @@ public class Airport extends Model {
 	
 	protected TimeSeries dataPeopleCarRent;
 	
+	protected TimeSeries dataPeopleInBus;
+	
 	public Airport() {
 		this(null, "Airport", true, true);
 	}
@@ -107,9 +109,10 @@ public class Airport extends Model {
 		carWaitForPeople = new ProcessQueue<>(this, "Car queue", true, true);
 		busQueue = new ProcessQueue<>(this, "People in Bus", true, true);
 		
-		dataPeopleTerminal1 = new TimeSeries(this, "Terminal 1", new TimeInstant(0), new TimeInstant(1500), false, false);
-		dataPeopleTerminal2 = new TimeSeries(this, "Terminal 2", new TimeInstant(0), new TimeInstant(1500), false, false);
-		dataPeopleCarRent = new TimeSeries(this, "Car Rent", new TimeInstant(0), new TimeInstant(1500), false, false);
+		dataPeopleTerminal1 = new TimeSeries(this, "Terminal 1", new TimeInstant(0), new TimeInstant(1500), true, true);
+		dataPeopleTerminal2 = new TimeSeries(this, "Terminal 2", new TimeInstant(0), new TimeInstant(1500), true, true);
+		dataPeopleCarRent = new TimeSeries(this, "Car Rent", new TimeInstant(0), new TimeInstant(1500), true, true);
+		dataPeopleInBus = new TimeSeries(this, "People in Bus", new TimeInstant(0), new TimeInstant(1500), true, true);
 		
 		bus = new Bus(this, "bus", true, true);
 		bus.activate();

@@ -32,7 +32,7 @@ public class TerminalPersonGenerator extends ExternalEvent {
 		airplanesize = rnd.nextInt(AIRPLANE_MAX_SIZE - AIRPLANE_MINI_SIZE) + AIRPLANE_MINI_SIZE;
 
 		for (int i = airplanesize; i < airport.plainSize; i++) {
-			destinantion.insert(new Person(airport, "Mensch", true, Airport.DEST_CAR_RENT));
+			destinantion.insert(new Person(airport, "Mensch Car", true, Airport.DEST_CAR_RENT));
 		}
 
 		this.schedule(new TimeSpan(waittime * 60));

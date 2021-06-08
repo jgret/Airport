@@ -20,10 +20,8 @@ public class CarPeopleGenerator extends ExternalEvent {
 	@Override
 	public void eventRoutine() throws SuspendExecution {
 		
-		destinantion.insert(new Person(airport, "Mensch", true, Airport.DEST_TERMINAL_1));
-		destinantion.insert(new Person(airport, "Mensch", true, Airport.DEST_TERMINAL_2));
-		
-		airport.dataPeopleTerminal1.update(50);
+		destinantion.insert(new Person(airport, "Mensch T1", true, Airport.DEST_TERMINAL_1));
+		destinantion.insert(new Person(airport, "Mensch T2", true, Airport.DEST_TERMINAL_2));
 		
 		this.schedule(new TimeSpan(60));
 	}
