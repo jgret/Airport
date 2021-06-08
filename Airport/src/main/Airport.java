@@ -4,6 +4,7 @@ import desmoj.core.simulator.Experiment;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.ProcessQueue;
 import desmoj.core.simulator.TimeInstant;
+import desmoj.core.statistic.TimeSeries;
 
 public class Airport extends Model {
 	
@@ -59,6 +60,18 @@ public class Airport extends Model {
 	
 	protected TerminalPersonGenerator terminalPersonGenerator2;
 	
+	protected int totalTerminal1;
+	
+	protected TimeSeries dataPeopleTerminal1;
+	
+	protected int totalTerminal2;
+	
+	protected TimeSeries dataPeopleTerminal2;
+	
+	protected int totalCarRent;
+	
+	protected TimeSeries dataPeopleCarRent;
+	
 	public Airport() {
 		this(null, "Airport", true, true);
 	}
@@ -89,6 +102,10 @@ public class Airport extends Model {
 		peopleWaitForCar = new ProcessQueue<>(this, "People wait for Car", true, true);
 		carWaitForPeople = new ProcessQueue<>(this, "Car queue", true, true);
 		busQueue = new ProcessQueue<>(this, "People in Bus", true, true);
+		
+		dataPeopleTerminal1 = new TimeSeries(this, "Terminal 1", new TimeInstant(0), new TimeInstant(1500), false, false);
+		dataPeopleTerminal2 = new TimeSeries(this, "Terminal 2", new TimeInstant(0), new TimeInstant(1500), false, false);
+		dataPeopleCarRent = new TimeSeries(this, "Car Rent", new TimeInstant(0), new TimeInstant(1500), false, false);
 		
 		bus = new Bus(this, "bus", true, true);
 		bus.activate();
