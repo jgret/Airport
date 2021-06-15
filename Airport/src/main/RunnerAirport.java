@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import desmoj.core.util.AccessPoint;
 import desmoj.core.util.SimRunListener;
+import desmoj.extensions.experimentation.reflect.MutableFieldAccessPoint;
 import desmoj.extensions.experimentation.ui.ExperimentStarterApplication;
 import desmoj.extensions.experimentation.ui.GraphicalObserverContext;
 import desmoj.extensions.experimentation.ui.HistogramPlotter;
@@ -45,8 +46,8 @@ public class RunnerAirport extends ExperimentRunner {
 	@Override
 	public Map<String,AccessPoint> createParameters() {
 		Map<String,AccessPoint> pm = super.createParameters();
-		AccessUtil.setValue(pm, EXP_STOP_TIME, 1500.0);
-		AccessUtil.setValue(pm, EXP_TRACE_STOP, 1500.0);
+		AccessUtil.setValue(pm, EXP_STOP_TIME, 86400.0);
+		AccessUtil.setValue(pm, EXP_TRACE_STOP, 21600.0);
 		AccessUtil.setValue(pm, EXP_REF_UNIT, TimeUnit.SECONDS);
 		return pm;
 	}

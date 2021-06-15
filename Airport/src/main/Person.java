@@ -58,24 +58,18 @@ public class Person extends SimProcess{
 	}
 	
 	public boolean plotData() {
-		airport.dataWaitTimesCarRent.update(7);
-		airport.dataWaitTimesT1.update(6);
-		airport.dataWaitTimesT2.update(5);
 		if (!dataPlottet) {
 			if (entrance[DEST_CAR_RENT] != null && exit[DEST_CAR_RENT] != null) {
 				double time = exit[DEST_CAR_RENT].getTimeAsDouble() - entrance[DEST_CAR_RENT].getTimeAsDouble();
 				airport.dataWaitTimesCarRent.update(time);
-				System.out.println(this + "WT Car: " + time);
 			}
 			if (entrance[DEST_TERMINAL_1] != null && exit[DEST_TERMINAL_1] != null) {
 				double time = exit[DEST_TERMINAL_1].getTimeAsDouble() - entrance[DEST_TERMINAL_1].getTimeAsDouble();
 				airport.dataWaitTimesT1.update(time);
-				System.out.println(this + "WT T1: " + time);
 			}
 			if (entrance[DEST_TERMINAL_2] != null && exit[DEST_TERMINAL_2] != null) {
 				double time = exit[DEST_TERMINAL_2].getTimeAsDouble() - entrance[DEST_TERMINAL_2].getTimeAsDouble();
 				airport.dataWaitTimesT2.update(time);
-				System.out.println(this + "WT T2: " + time);
 			}
 			return (dataPlottet = true);
 		}
