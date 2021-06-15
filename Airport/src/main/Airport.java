@@ -53,7 +53,7 @@ public class Airport extends Model implements Parameterizable {
 	 * cars waiting at the car rent for people
 	 */
 
-	protected ProcessQueue<Car> carWaitForPeople;
+	protected ProcessQueue<Car> carwithpeople;
 
 	protected Bus bus; // ?????
 
@@ -61,6 +61,8 @@ public class Airport extends Model implements Parameterizable {
 
 	protected int busMaxWait = 5;
 
+	protected int rentcaresize = 200;
+	
 	protected int plainSize = 80;
 
 	protected TerminalPersonGenerator terminalPersonGenerator1;
@@ -69,6 +71,8 @@ public class Airport extends Model implements Parameterizable {
 
 	protected CarPeopleGenerator carRentPersonGenerator;
 
+	protected CarTerminal carTerminal;
+	
 	protected int totalTerminal1 = 0;
 
 	protected TimeSeries dataPeopleTerminal1;
@@ -121,6 +125,9 @@ public class Airport extends Model implements Parameterizable {
 		terminalPersonGenerator2.schedule();
 		carRentPersonGenerator = new CarPeopleGenerator(this, "gen3", true, peopleWaitForBus);
 		carRentPersonGenerator.schedule();
+		carTerminal = new CarTerminal(this,"Car mannager",false);
+		carTerminal.schedule();
+
 	}
 
 	@Override
@@ -130,7 +137,7 @@ public class Airport extends Model implements Parameterizable {
 		terminalQueue2 = new ProcessQueue<>(this, "Queue Terminal 1", true, true);
 		peopleWaitForBus = new ProcessQueue<>(this, "People wait for Bus", true, true);
 		peopleWaitForCar = new ProcessQueue<>(this, "People wait for Car", true, true);
-		carWaitForPeople = new ProcessQueue<>(this, "Car queue", true, true);
+		carwithpeople = new ProcessQueue<>(this, "Car queue", true, true);
 		busQueue = new ProcessQueue<>(this, "People in Bus", true, true);
 
 //		System.out.println(this.getParameterManager().getParameters());

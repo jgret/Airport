@@ -120,15 +120,18 @@ public class Bus extends SimProcess {
 			if (airport.busQueue.size() > 0) {
 				for (Person p : airport.busQueue) {
 //				airport.peopleWaitForBus.insert(p);
-//                    airport.dataPeopleCarRent.update(++airport.totalCarRent);
-					hold(new TimeSpan(2));
-					p.arrive(Airport.DEST_CAR_RENT);
-					p.plotData();
-				}
-				airport.busQueue.removeAll();
-				airport.dataPeopleInBus.update(airport.busQueue.size());
-				changesize = true;
-			}
-		}
-	}
+
+                    airport.peopleWaitForCar.insert(p);
+                    airport.dataPeopleCarRent.update(++airport.totalCarRent);
+                    hold(new TimeSpan(2));
+                    p.arrive(Airport.DEST_CAR_RENT);
+                    p.plotData();
+                }
+                airport.busQueue.removeAll();
+                airport.dataPeopleInBus.update(airport.busQueue.size());
+                changesize = true;
+            }
+        }
+    }
+
 }
