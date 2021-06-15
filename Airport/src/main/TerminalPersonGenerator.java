@@ -35,8 +35,9 @@ public class TerminalPersonGenerator extends ExternalEvent {
 
         for (int i = airplanesize; i < airport.plainSize; i++) {
             Person p = new Person(airport, "Mensch Car", true, Airport.DEST_CAR_RENT);
-            destinantion.insert(p);
             p.arrive(gen);
+            destinantion.insert(p);
+            
         }
 
         this.schedule(new TimeSpan(waittime * 60));

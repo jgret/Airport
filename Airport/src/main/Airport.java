@@ -133,7 +133,7 @@ public class Airport extends Model {
 		dataWaitTimesT1 = new Histogram(this, "Terminal 1 Wait Times", 0, 10000, 10, false, false);
 		dataWaitTimesT2 = new Histogram(this, "Terminal 2 Wait Times", 0, 10000, 10, false, false);
 		dataWaitTimesTotal = new Histogram(this, "Total Wait Times", 0, 10000, 10, false, false);
-		
+
 		bus = new Bus(this, "bus", true, true);
 		bus.activate();
 	}
@@ -147,6 +147,7 @@ public class Airport extends Model {
         Experiment.setReferenceUnit(java.util.concurrent.TimeUnit.SECONDS);
         Experiment experiment = new Experiment("Airport Model");
 
+        
 		// make a new model
 		// null as first parameter because it is the main model and has no mastermodel
 		Airport vc_1st_p_Model =
@@ -166,7 +167,6 @@ public class Airport extends Model {
 		// let him work 1500 Minutes
 		experiment.stop(new TimeInstant(1500));
 		experiment.setShowProgressBar(false);
-
 		
 		// start the Experiment with start time 0.0
 		experiment.start();
@@ -175,7 +175,6 @@ public class Airport extends Model {
 		// ...
 		// ...
 		// <-- after reaching ending criteria, the main thread returns here
-
 		
 		// print the report about the already existing reporters into the report file
 		experiment.report();
