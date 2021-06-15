@@ -53,6 +53,8 @@ public class Bus extends SimProcess {
 			ende = presentTime();
 
 			while (!changesize && (ende.getTimeRounded() - start.getTimeRounded()) <= 300) {
+				airport.dataPeopleTerminal1.update(airport.terminalQueue1.size());
+
 				for (Person p : airport.busQueue) {
 					if (p.getDestination() == Airport.DEST_TERMINAL_1) {
 						p.exit(Airport.DEST_TERMINAL_1);
@@ -84,6 +86,8 @@ public class Bus extends SimProcess {
 			hold(new TimeSpan(20));
 
 			while (!changesize && (ende.getTimeRounded() - start.getTimeRounded()) <= 300) {
+				airport.dataPeopleTerminal2.update(airport.terminalQueue2.size());
+
 				for (Person p : airport.busQueue) {
 					if (p.getDestination() == Airport.DEST_TERMINAL_2) {
 						p.arrive(Airport.DEST_TERMINAL_2);
