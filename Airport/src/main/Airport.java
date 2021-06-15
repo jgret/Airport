@@ -4,6 +4,7 @@ import desmoj.core.simulator.Experiment;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.ProcessQueue;
 import desmoj.core.simulator.TimeInstant;
+import desmoj.core.statistic.Histogram;
 import desmoj.core.statistic.TimeSeries;
 
 public class Airport extends Model {
@@ -71,10 +72,24 @@ public class Airport extends Model {
 	protected TimeSeries dataPeopleTerminal2;
 	
 	protected int totalCarRent = 0;
-	
+
 	protected TimeSeries dataPeopleCarRent;
 	
 	protected TimeSeries dataPeopleInBus;
+	
+	protected int maxWaitTimeT1;
+
+	protected int maxWaitTimeT2;
+	
+	protected int maxWaitTimeCarRent;
+	
+	protected Histogram dataWaitTimesT1;
+	
+	protected Histogram dataWaitTimesT2;
+	
+	protected Histogram dataWaitTimesCarRent;
+	
+	protected Histogram dataWaitTimesTotal;
 	
 	public Airport() {
 		this(null, "Airport", true, true);
