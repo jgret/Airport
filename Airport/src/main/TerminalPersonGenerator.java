@@ -40,6 +40,14 @@ public class TerminalPersonGenerator extends ExternalEvent {
             
         }
 
+        switch (gen){
+            case 1:
+                airport.dataPeopleTerminal1.update(airport.terminalQueue1.size());
+            case 2:
+                airport.dataPeopleTerminal2.update(airport.terminalQueue2.size());
+        }
+
+
         this.schedule(new TimeSpan(waittime * 60));
 
     }
