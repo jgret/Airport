@@ -34,9 +34,8 @@ public class Bus extends SimProcess {
                     while (!airport.peopleWaitForBus.isEmpty() && airport.busQueue.size() < airport.busSize) {
                         Person person = airport.peopleWaitForBus.first();
                         airport.peopleWaitForBus.remove(person);
-
                         hold(new TimeSpan(2));
-
+                        person.exit(Airport.DEST_CAR_RENT);
                         airport.busQueue.insert(person);
                     }
                     changesize = true;
@@ -56,6 +55,7 @@ public class Bus extends SimProcess {
             while (!changesize && (ende.getTimeRounded() - start.getTimeRounded()) <= 300) {
                 for (Person p : airport.busQueue) {
                     if (p.getDestination() == Airport.DEST_TERMINAL_1) {
+                        p.exit(Airport.DEST_TERMINAL_1);
                         airport.busQueue.remove(p);
                         airport.dataPeopleTerminal1.update(++airport.totalTerminal1);
                         airport.dataPeopleInBus.update(airport.busQueue.size());
@@ -67,8 +67,8 @@ public class Bus extends SimProcess {
                 while (!airport.terminalQueue1.isEmpty() && airport.busQueue.size() < airport.busSize) {
                     Person person = airport.terminalQueue1.first();
                     airport.terminalQueue1.remove(person);
+                    person.arrive(Airport.DEST_TERMINAL_1);
                     hold(new TimeSpan(2));
-
                     airport.busQueue.insert(person);
                     airport.dataPeopleInBus.update(airport.busQueue.size());
                     changesize = true;
@@ -85,6 +85,7 @@ public class Bus extends SimProcess {
             while (!changesize && (ende.getTimeRounded() - start.getTimeRounded()) <= 300) {
                 for (Person p : airport.busQueue) {
                     if (p.getDestination() == Airport.DEST_TERMINAL_2) {
+                        p.arrive(Airport.DEST_TERMINAL_2);
                         airport.busQueue.remove(p);
                         airport.dataPeopleTerminal2.update(++airport.totalTerminal2);
                         airport.dataPeopleInBus.update(airport.busQueue.size());
@@ -97,7 +98,7 @@ public class Bus extends SimProcess {
                     Person person = airport.terminalQueue2.first();
                     airport.terminalQueue2.remove(person);
                     hold(new TimeSpan(2));
-
+                    person.exit(Airport.DEST_TERMINAL_2);
                     airport.busQueue.insert(person);
                     airport.dataPeopleInBus.update(airport.busQueue.size());
                     changesize = true;
@@ -115,6 +116,7 @@ public class Bus extends SimProcess {
 //				airport.peopleWaitForBus.insert(p);
                     airport.dataPeopleCarRent.update(++airport.totalCarRent);
                     hold(new TimeSpan(2));
+                    p.arrive(Airport.DEST_CAR_RENT);
                 }
                 airport.busQueue.removeAll();
                 airport.dataPeopleInBus.update(airport.busQueue.size());

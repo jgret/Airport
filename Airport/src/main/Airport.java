@@ -106,9 +106,9 @@ public class Airport extends Model {
 
 	@Override
 	public void doInitialSchedules() {
-		terminalPersonGenerator1 = new TerminalPersonGenerator(this, "gen1", true, terminalQueue1);
+		terminalPersonGenerator1 = new TerminalPersonGenerator(this, "gen1", true, terminalQueue1,Airport.DEST_TERMINAL_1);
 		terminalPersonGenerator1.schedule();
-		terminalPersonGenerator2 = new TerminalPersonGenerator(this, "gen2", true, terminalQueue2);
+		terminalPersonGenerator2 = new TerminalPersonGenerator(this, "gen2", true, terminalQueue2, Airport.DEST_TERMINAL_2);
 		terminalPersonGenerator2.schedule();
 		carRentPersonGenerator = new CarPeopleGenerator(this,"gen3", true, peopleWaitForBus);
 		carRentPersonGenerator.schedule();
