@@ -6,6 +6,7 @@ import desmoj.core.simulator.ProcessQueue;
 import desmoj.core.simulator.TimeInstant;
 import desmoj.core.statistic.Histogram;
 import desmoj.core.statistic.TimeSeries;
+import desmoj.extensions.experimentation.util.ExperimentRunner;
 
 public class Airport extends Model {
 	
@@ -124,10 +125,13 @@ public class Airport extends Model {
 		carWaitForPeople = new ProcessQueue<>(this, "Car queue", true, true);
 		busQueue = new ProcessQueue<>(this, "People in Bus", true, true);
 		
-		dataPeopleTerminal1 = new TimeSeries(this, "Terminal 1", new TimeInstant(0), new TimeInstant(1500), true, true);
-		dataPeopleTerminal2 = new TimeSeries(this, "Terminal 2", new TimeInstant(0), new TimeInstant(1500), true, true);
-		dataPeopleCarRent = new TimeSeries(this, "Car Rent", new TimeInstant(0), new TimeInstant(1500), true, true);
-		dataPeopleInBus = new TimeSeries(this, "People in Bus", new TimeInstant(0), new TimeInstant(1500), true, true);
+		
+		double simStart = (double) this.getParameterManager().getParameterValue(ExperimentRunner.EXP_START_TIME);
+		double simStop = (double) this.getParameterManager().getParameterValue(ExperimentRunner.EXP_STOP_TIME);
+		dataPeopleTerminal1 = new TimeSeries(this, "Terminal 1", new TimeInstant(simStart), new TimeInstant(simStop), true, true);
+		dataPeopleTerminal2 = new TimeSeries(this, "Terminal 2", new TimeInstant(simStart), new TimeInstant(simStop), true, true);
+		dataPeopleCarRent = new TimeSeries(this, "Car Rent", new TimeInstant(simStart), new TimeInstant(simStop), true, true);
+		dataPeopleInBus = new TimeSeries(this, "People in Bus", new TimeInstant(simStart), new TimeInstant(simStop), true, true);
 		
 		dataWaitTimesCarRent = new Histogram(this, "Car Rent Wait Times", 0, 10000, 10, false, false);
 		dataWaitTimesT1 = new Histogram(this, "Terminal 1 Wait Times", 0, 10000, 10, false, false);
