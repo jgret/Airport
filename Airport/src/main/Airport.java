@@ -129,6 +129,11 @@ public class Airport extends Model {
 		dataPeopleCarRent = new TimeSeries(this, "Car Rent", new TimeInstant(0), new TimeInstant(1500), true, true);
 		dataPeopleInBus = new TimeSeries(this, "People in Bus", new TimeInstant(0), new TimeInstant(1500), true, true);
 		
+		dataWaitTimesCarRent = new Histogram(this, "Car Rent Wait Times", 0, 10000, 10, false, false);
+		dataWaitTimesT1 = new Histogram(this, "Terminal 1 Wait Times", 0, 10000, 10, false, false);
+		dataWaitTimesT2 = new Histogram(this, "Terminal 2 Wait Times", 0, 10000, 10, false, false);
+		dataWaitTimesTotal = new Histogram(this, "Total Wait Times", 0, 10000, 10, false, false);
+		
 		bus = new Bus(this, "bus", true, true);
 		bus.activate();
 	}

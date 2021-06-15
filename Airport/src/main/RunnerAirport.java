@@ -32,12 +32,14 @@ public class RunnerAirport extends ExperimentRunner {
 	@Override
 	public SimRunListener[] createSimRunListeners(GraphicalObserverContext c) {
 		Airport model = (Airport)getModel();
-		TimeSeriesPlotter tp1 = new TimeSeriesPlotter("Terminal 1", c, model.dataPeopleTerminal1, 360,360);
-		TimeSeriesPlotter tp2 = new TimeSeriesPlotter("Terminal 2", c, model.dataPeopleTerminal2, 360, 360);
-		TimeSeriesPlotter tp3 = new TimeSeriesPlotter("Car", c, model.dataPeopleCarRent, 360, 360);
+		TimeSeriesPlotter tp3 = new TimeSeriesPlotter("Car", c, model.dataPeopleCarRent, 360, 360, 0, 0);
+		TimeSeriesPlotter tp1 = new TimeSeriesPlotter("Terminal 1", c, model.dataPeopleTerminal1, 360,360, 360, 0);
+		TimeSeriesPlotter tp2 = new TimeSeriesPlotter("Terminal 2", c, model.dataPeopleTerminal2, 360, 360, 720, 0);
 		
-		//		HistogramPlotter hp = new HistogramPlotter("Truck Wait Times", c, model.waitTimeHistogram,"h", 360,360, 365,0);
-		return new SimRunListener[] {tp1};
+		HistogramPlotter hp1 = new HistogramPlotter("Car Rent Wait Times", c, model.dataWaitTimesCarRent,"h", 360,360, 0, 360);
+		HistogramPlotter hp2 = new HistogramPlotter("Terminal 1 Wait Times", c, model.dataWaitTimesT1,"h", 360,360, 360, 360);
+		HistogramPlotter hp3 = new HistogramPlotter("Terminal 2 Wait Times", c, model.dataWaitTimesT2,"h", 360,360, 720, 360);
+		return new SimRunListener[] {tp1, tp2, tp3, hp1, hp2, hp3};
 	}
 	
 	@Override
