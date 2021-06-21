@@ -204,7 +204,44 @@ public class Airport extends Model implements Parameterizable {
 //		experiment.finish();
 //
 //	}
-
+	
+	public void dataUpdateBus() {
+		dataPeopleInBus.update(busQueue.size());
+	}
+	
+	public void dataUpdateCarRent() {
+		dataPeopleCarRent.update(peopleWaitForBus.size());
+	}
+	
+	public void dataUpdateT1() {
+		dataPeopleTerminal1.update(terminalQueue1.size());
+	}
+	
+	public void dataUpdateT2() {
+		dataPeopleTerminal2.update(terminalQueue2.size());
+	}
+	
+	public Person getNextPersonFromCarRent() {
+		Person p = peopleWaitForBus.first();
+		peopleWaitForBus.remove(p);
+		dataUpdateCarRent();
+		return p;
+	}
+	
+	public Person getNextPersonFromT1() {
+		Person p = terminalQueue1.first();
+		terminalQueue1.remove(p);
+		dataUpdateT1();
+		return p;
+	}
+	
+	public Person getNextPersonFromT2() {
+		Person p = terminalQueue2.first();
+		terminalQueue2.remove(p);
+		dataUpdateT2();
+		return p;
+	}
+	
 	@Override
 	public Map<String, AccessPoint> createParameters() {
 		Map<String, AccessPoint> pm = new TreeMap<String, AccessPoint>();
