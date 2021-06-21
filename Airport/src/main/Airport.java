@@ -154,10 +154,10 @@ public class Airport extends Model implements Parameterizable {
 		dataPeopleInBus = new TimeSeries(this, "People in Bus", new TimeInstant(simStart), new TimeInstant(simStop),
 				true, true);
 
-		dataWaitTimesCarRent = new Histogram(this, "Car Rent Wait Times", 0, 10000, 10, false, false);
-		dataWaitTimesT1 = new Histogram(this, "Terminal 1 Wait Times", 0, 10000, 10, false, false);
-		dataWaitTimesT2 = new Histogram(this, "Terminal 2 Wait Times", 0, 10000, 10, false, false);
-		dataWaitTimesTotal = new Histogram(this, "Total Wait Times", 0, 10000, 10, false, false);
+		dataWaitTimesCarRent = new Histogram(this, "Car Rent Wait Times", 0, 10000, 100, false, false);
+		dataWaitTimesT1 = new Histogram(this, "Terminal 1 Wait Times", 0, 10000, 100, false, false);
+		dataWaitTimesT2 = new Histogram(this, "Terminal 2 Wait Times", 0, 10000, 100, false, false);
+		dataWaitTimesTotal = new Histogram(this, "Total Wait Times", 0, 10000, 100, false, false);
 
 		System.out.println(this.getParameterManager().getParameters());
 
