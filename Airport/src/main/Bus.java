@@ -122,7 +122,7 @@ public class Bus extends SimProcess {
 //				airport.peopleWaitForBus.insert(p);
 
                     airport.peopleWaitForCar.insert(p);
-                    airport.dataPeopleCarRent.update(++airport.totalCarRent);
+                    airport.totalCarRent++;
                     hold(new TimeSpan(2));
                     p.arrive(Airport.DEST_CAR_RENT);
                     p.plotData();
