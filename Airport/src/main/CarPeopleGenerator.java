@@ -26,7 +26,7 @@ public class CarPeopleGenerator extends ExternalEvent {
 		p2.arrive(Airport.DEST_CAR_RENT);
 		destinantion.insert(p2);
 		airport.dataPeopleCarRent.update(airport.peopleWaitForBus.size());
-		this.schedule(new TimeSpan(60));
+		this.schedule(new TimeSpan(1000));
 	}
 
 }

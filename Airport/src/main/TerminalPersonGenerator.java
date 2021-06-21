@@ -30,7 +30,7 @@ public class TerminalPersonGenerator extends ExternalEvent {
         int airplanesize;
         int waittime;
 
-        waittime = rnd.nextInt(5) + 1;
+        waittime = rnd.nextInt(3) + 1;
         airplanesize = rnd.nextInt(AIRPLANE_MAX_SIZE - AIRPLANE_MINI_SIZE) + AIRPLANE_MINI_SIZE;
 
         for (int i = airplanesize; i < airport.plainSize; i++) {
@@ -48,7 +48,7 @@ public class TerminalPersonGenerator extends ExternalEvent {
         }
 
 
-        this.schedule(new TimeSpan(waittime * 60));
+        this.schedule(new TimeSpan(waittime*60*60)); // in hours
 
     }
 
