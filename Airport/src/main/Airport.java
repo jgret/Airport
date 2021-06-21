@@ -117,11 +117,9 @@ public class Airport extends Model implements Parameterizable {
 
 	@Override
 	public void doInitialSchedules() {
-		terminalPersonGenerator1 = new TerminalPersonGenerator(this, "gen1", true, terminalQueue1,
-				Airport.DEST_TERMINAL_1);
+		terminalPersonGenerator1 = new TerminalPersonGenerator(this, "gen1", true, terminalQueue1,Airport.DEST_TERMINAL_1);
 		terminalPersonGenerator1.schedule();
-		terminalPersonGenerator2 = new TerminalPersonGenerator(this, "gen2", true, terminalQueue2,
-				Airport.DEST_TERMINAL_2);
+		terminalPersonGenerator2 = new TerminalPersonGenerator(this, "gen2", true, terminalQueue2,Airport.DEST_TERMINAL_2);
 		terminalPersonGenerator2.schedule();
 		carRentPersonGenerator = new CarPeopleGenerator(this, "gen3", true, peopleWaitForBus);
 		carRentPersonGenerator.schedule();
@@ -133,7 +131,7 @@ public class Airport extends Model implements Parameterizable {
 	public void init() {
 
 		terminalQueue1 = new ProcessQueue<>(this, "Queue Terminal 1", true, true);
-		terminalQueue2 = new ProcessQueue<>(this, "Queue Terminal 1", true, true);
+		terminalQueue2 = new ProcessQueue<>(this, "Queue Terminal 2", true, true);
 		peopleWaitForBus = new ProcessQueue<>(this, "People wait for Bus", true, true);
 		peopleWaitForCar = new ProcessQueue<>(this, "People wait for Car", true, true);
 		carwithpeople = new ProcessQueue<>(this, "Car queue", true, true);

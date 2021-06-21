@@ -13,16 +13,18 @@ public class TerminalPersonGenerator extends ExternalEvent {
     private Airport airport;
     private ProcessQueue<Person> destinantion;
     private Random rnd;
-    private int gen;
+    private String name;
+    private int generatornumber;
     public static final int AIRPLANE_MAX_SIZE = 120;
     public static final int AIRPLANE_MINI_SIZE = 20;
 
-    public TerminalPersonGenerator(Model owner, String name, boolean showInTrace, ProcessQueue<Person> dest, int gen) {
+    public TerminalPersonGenerator(Model owner, String name, boolean showInTrace, ProcessQueue<Person> dest, int generatornubmer) {
         super(owner, name, showInTrace);
         this.airport = (Airport) owner;
+        this.name = name;
         this.destinantion = dest;
         this.rnd = new Random();
-        this.gen = gen;
+        this.generatornumber = generatornubmer;
     }
 
     @Override
@@ -32,15 +34,15 @@ public class TerminalPersonGenerator extends ExternalEvent {
 
         waittime = rnd.nextInt(3) + 1;
         airplanesize = rnd.nextInt(AIRPLANE_MAX_SIZE - AIRPLANE_MINI_SIZE) + AIRPLANE_MINI_SIZE;
-
+        System.out.println("Name: "+ name + " Generatornumber: "+generatornumber);
         for (int i = airplanesize; i < airport.plainSize; i++) {
             Person p = new Person(airport, "Mensch Car", true, Airport.DEST_CAR_RENT);
-            p.arrive(gen);
+            p.arrive(generatornumber);
             destinantion.insert(p);
             
         }
 
-        switch (gen){
+        switch (generatornumber){
             case 1:
                 airport.dataPeopleTerminal1.update(airport.terminalQueue1.size());
             case 2:
