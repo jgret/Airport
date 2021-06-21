@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 
 import desmoj.core.util.AccessPoint;
 import desmoj.core.util.SimRunListener;
-import desmoj.extensions.experimentation.reflect.MutableFieldAccessPoint;
 import desmoj.extensions.experimentation.ui.ExperimentStarterApplication;
 import desmoj.extensions.experimentation.ui.GraphicalObserverContext;
 import desmoj.extensions.experimentation.ui.HistogramPlotter;

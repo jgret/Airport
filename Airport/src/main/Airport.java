@@ -166,45 +166,45 @@ public class Airport extends Model implements Parameterizable {
 		bus.activate();
 	}
 
-	public static void main(java.lang.String[] args) {
-
-		// make a new experiment
-		// Use as experiment name a OS filename compatible string!!
-		// Otherwise your simulation will crash!!
-		Experiment.setEpsilon(java.util.concurrent.TimeUnit.MILLISECONDS);
-		Experiment.setReferenceUnit(java.util.concurrent.TimeUnit.SECONDS);
-		Experiment experiment = new Experiment("Airport Model");
-
-		// make a new model
-		// null as first parameter because it is the main model and has no mastermodel
-		Airport vc_1st_p_Model = new Airport(null, "Airport Model", true, false);
-
-		// connect Experiment and Model
-		vc_1st_p_Model.connectToExperiment(experiment);
-
-		// set trace
-		experiment.tracePeriod(new TimeInstant(0), new TimeInstant(100));
-
-		// now set the time this simulation should stop at
-		// let him work 1500 Minutes
-		experiment.stop(new TimeInstant(1500));
-		experiment.setShowProgressBar(false);
-
-		// start the Experiment with start time 0.0
-		experiment.start();
-
-		// --> now the simulation is running until it reaches its ending criteria
-		// ...
-		// ...
-		// <-- after reaching ending criteria, the main thread returns here
-
-		// print the report about the already existing reporters into the report file
-		experiment.report();
-
-		// stop all threads still alive and close all output files
-		experiment.finish();
-
-	}
+//	public static void main(java.lang.String[] args) {
+//
+//		// make a new experiment
+//		// Use as experiment name a OS filename compatible string!!
+//		// Otherwise your simulation will crash!!
+//		Experiment.setEpsilon(java.util.concurrent.TimeUnit.MILLISECONDS);
+//		Experiment.setReferenceUnit(java.util.concurrent.TimeUnit.SECONDS);
+//		Experiment experiment = new Experiment("Airport Model");
+//
+//		// make a new model
+//		// null as first parameter because it is the main model and has no mastermodel
+//		Airport vc_1st_p_Model = new Airport(null, "Airport Model", true, false);
+//
+//		// connect Experiment and Model
+//		vc_1st_p_Model.connectToExperiment(experiment);
+//
+//		// set trace
+//		experiment.tracePeriod(new TimeInstant(0), new TimeInstant(100));
+//
+//		// now set the time this simulation should stop at
+//		// let him work 1500 Minutes
+//		experiment.stop(new TimeInstant(1500));
+//		experiment.setShowProgressBar(false);
+//
+//		// start the Experiment with start time 0.0
+//		experiment.start();
+//
+//		// --> now the simulation is running until it reaches its ending criteria
+//		// ...
+//		// ...
+//		// <-- after reaching ending criteria, the main thread returns here
+//
+//		// print the report about the already existing reporters into the report file
+//		experiment.report();
+//
+//		// stop all threads still alive and close all output files
+//		experiment.finish();
+//
+//	}
 
 	@Override
 	public Map<String, AccessPoint> createParameters() {
