@@ -127,7 +127,6 @@ public class Airport extends Model implements Parameterizable {
 		carRentPersonGenerator.schedule();
 		carTerminal = new CarTerminal(this,"Car mannager",false);
 		carTerminal.schedule();
-
 	}
 
 	@Override
