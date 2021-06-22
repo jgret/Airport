@@ -117,24 +117,21 @@ public class Airport extends Model implements Parameterizable {
 
 	@Override
 	public void doInitialSchedules() {
-		terminalPersonGenerator1 = new TerminalPersonGenerator(this, "gen1", true, terminalQueue1,
-				Airport.DEST_TERMINAL_1);
+		terminalPersonGenerator1 = new TerminalPersonGenerator(this, "gen1", true, terminalQueue1,Airport.DEST_TERMINAL_1);
 		terminalPersonGenerator1.schedule();
-		terminalPersonGenerator2 = new TerminalPersonGenerator(this, "gen2", true, terminalQueue2,
-				Airport.DEST_TERMINAL_2);
+		terminalPersonGenerator2 = new TerminalPersonGenerator(this, "gen2", true, terminalQueue2,Airport.DEST_TERMINAL_2);
 		terminalPersonGenerator2.schedule();
 		carRentPersonGenerator = new CarPeopleGenerator(this, "gen3", true, peopleWaitForBus);
 		carRentPersonGenerator.schedule();
 		carTerminal = new CarTerminal(this,"Car mannager",false);
 		carTerminal.schedule();
-
 	}
 
 	@Override
 	public void init() {
 
 		terminalQueue1 = new ProcessQueue<>(this, "Queue Terminal 1", true, true);
-		terminalQueue2 = new ProcessQueue<>(this, "Queue Terminal 1", true, true);
+		terminalQueue2 = new ProcessQueue<>(this, "Queue Terminal 2", true, true);
 		peopleWaitForBus = new ProcessQueue<>(this, "People wait for Bus", true, true);
 		peopleWaitForCar = new ProcessQueue<>(this, "People wait for Car", true, true);
 		carwithpeople = new ProcessQueue<>(this, "Car queue", true, true);
@@ -155,10 +152,10 @@ public class Airport extends Model implements Parameterizable {
 		dataPeopleInBus = new TimeSeries(this, "People in Bus", new TimeInstant(simStart), new TimeInstant(simStop),
 				true, true);
 
-		dataWaitTimesCarRent = new Histogram(this, "Car Rent Wait Times", 0, 10000, 10, false, false);
-		dataWaitTimesT1 = new Histogram(this, "Terminal 1 Wait Times", 0, 10000, 10, false, false);
-		dataWaitTimesT2 = new Histogram(this, "Terminal 2 Wait Times", 0, 10000, 10, false, false);
-		dataWaitTimesTotal = new Histogram(this, "Total Wait Times", 0, 10000, 10, false, false);
+		dataWaitTimesCarRent = new Histogram(this, "Car Rent Wait Times", 0, 10000, 100, false, false);
+		dataWaitTimesT1 = new Histogram(this, "Terminal 1 Wait Times", 0, 10000, 100, false, false);
+		dataWaitTimesT2 = new Histogram(this, "Terminal 2 Wait Times", 0, 10000, 100, false, false);
+		dataWaitTimesTotal = new Histogram(this, "Total Wait Times", 0, 10000, 100, false, false);
 
 		System.out.println(this.getParameterManager().getParameters());
 
@@ -166,46 +163,83 @@ public class Airport extends Model implements Parameterizable {
 		bus.activate();
 	}
 
-	public static void main(java.lang.String[] args) {
-
-		// make a new experiment
-		// Use as experiment name a OS filename compatible string!!
-		// Otherwise your simulation will crash!!
-		Experiment.setEpsilon(java.util.concurrent.TimeUnit.MILLISECONDS);
-		Experiment.setReferenceUnit(java.util.concurrent.TimeUnit.SECONDS);
-		Experiment experiment = new Experiment("Airport Model");
-
-		// make a new model
-		// null as first parameter because it is the main model and has no mastermodel
-		Airport vc_1st_p_Model = new Airport(null, "Airport Model", true, false);
-
-		// connect Experiment and Model
-		vc_1st_p_Model.connectToExperiment(experiment);
-
-		// set trace
-		experiment.tracePeriod(new TimeInstant(0), new TimeInstant(100));
-
-		// now set the time this simulation should stop at
-		// let him work 1500 Minutes
-		experiment.stop(new TimeInstant(1500));
-		experiment.setShowProgressBar(false);
-
-		// start the Experiment with start time 0.0
-		experiment.start();
-
-		// --> now the simulation is running until it reaches its ending criteria
-		// ...
-		// ...
-		// <-- after reaching ending criteria, the main thread returns here
-
-		// print the report about the already existing reporters into the report file
-		experiment.report();
-
-		// stop all threads still alive and close all output files
-		experiment.finish();
-
+//	public static void main(java.lang.String[] args) {
+//
+//		// make a new experiment
+//		// Use as experiment name a OS filename compatible string!!
+//		// Otherwise your simulation will crash!!
+//		Experiment.setEpsilon(java.util.concurrent.TimeUnit.MILLISECONDS);
+//		Experiment.setReferenceUnit(java.util.concurrent.TimeUnit.SECONDS);
+//		Experiment experiment = new Experiment("Airport Model");
+//
+//		// make a new model
+//		// null as first parameter because it is the main model and has no mastermodel
+//		Airport vc_1st_p_Model = new Airport(null, "Airport Model", true, false);
+//
+//		// connect Experiment and Model
+//		vc_1st_p_Model.connectToExperiment(experiment);
+//
+//		// set trace
+//		experiment.tracePeriod(new TimeInstant(0), new TimeInstant(100));
+//
+//		// now set the time this simulation should stop at
+//		// let him work 1500 Minutes
+//		experiment.stop(new TimeInstant(1500));
+//		experiment.setShowProgressBar(false);
+//
+//		// start the Experiment with start time 0.0
+//		experiment.start();
+//
+//		// --> now the simulation is running until it reaches its ending criteria
+//		// ...
+//		// ...
+//		// <-- after reaching ending criteria, the main thread returns here
+//
+//		// print the report about the already existing reporters into the report file
+//		experiment.report();
+//
+//		// stop all threads still alive and close all output files
+//		experiment.finish();
+//
+//	}
+	
+	public void dataUpdateBus() {
+		dataPeopleInBus.update(busQueue.size());
 	}
-
+	
+	public void dataUpdateCarRent() {
+		dataPeopleCarRent.update(peopleWaitForBus.size());
+	}
+	
+	public void dataUpdateT1() {
+		dataPeopleTerminal1.update(terminalQueue1.size());
+	}
+	
+	public void dataUpdateT2() {
+		dataPeopleTerminal2.update(terminalQueue2.size());
+	}
+	
+	public Person getNextPersonFromCarRent() {
+		Person p = peopleWaitForBus.first();
+		peopleWaitForBus.remove(p);
+		dataUpdateCarRent();
+		return p;
+	}
+	
+	public Person getNextPersonFromT1() {
+		Person p = terminalQueue1.first();
+		terminalQueue1.remove(p);
+		dataUpdateT1();
+		return p;
+	}
+	
+	public Person getNextPersonFromT2() {
+		Person p = terminalQueue2.first();
+		terminalQueue2.remove(p);
+		dataUpdateT2();
+		return p;
+	}
+	
 	@Override
 	public Map<String, AccessPoint> createParameters() {
 		Map<String, AccessPoint> pm = new TreeMap<String, AccessPoint>();
