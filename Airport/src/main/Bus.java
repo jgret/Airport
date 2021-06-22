@@ -72,7 +72,7 @@ public class Bus extends SimProcess {
 					airport.dataUpdateBus();
 					changesize = true;
 				}
-				hold(new TimeSpan(1));
+				hold(new TimeSpan(2));
 				ende = presentTime();
 				airport.dataPeopleTerminal1.update(airport.terminalQueue1.size());
 			}
@@ -104,7 +104,7 @@ public class Bus extends SimProcess {
 					airport.dataUpdateBus();
 					changesize = true;
 				}
-				hold(new TimeSpan(1));
+				hold(new TimeSpan(2));
 				ende = presentTime();
 				airport.dataPeopleTerminal2.update(airport.terminalQueue2.size());
 			}
