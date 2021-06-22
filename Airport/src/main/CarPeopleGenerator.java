@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 import co.paralleluniverse.fibers.SuspendExecution;
 import desmoj.core.simulator.ExternalEvent;
 import desmoj.core.simulator.Model;
@@ -10,11 +12,13 @@ public class CarPeopleGenerator extends ExternalEvent {
 
 	private Airport airport;
 	private ProcessQueue<Person> destinantion;
+	private Random random;
 	
 	public CarPeopleGenerator(Model owner, String name, boolean showInTrace, ProcessQueue<Person> dest) {
 		super(owner, name, showInTrace);
 		this.airport = (Airport) owner;
 		this.destinantion = dest;
+		this.random = new Random();
 	}
 
 	@Override
@@ -26,7 +30,7 @@ public class CarPeopleGenerator extends ExternalEvent {
 		p2.arrive(Airport.DEST_CAR_RENT);
 		destinantion.insert(p2);
 		airport.dataPeopleCarRent.update(airport.peopleWaitForBus.size());
-		this.schedule(new TimeSpan(1000));
+		this.schedule(new TimeSpan(1000 * (random.nextInt(3))));
 	}
 
 }

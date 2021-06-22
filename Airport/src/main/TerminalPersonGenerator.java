@@ -34,7 +34,6 @@ public class TerminalPersonGenerator extends ExternalEvent {
 
         waittime = rnd.nextInt(3) + 1;
         airplanesize = rnd.nextInt(AIRPLANE_MAX_SIZE - AIRPLANE_MINI_SIZE) + AIRPLANE_MINI_SIZE;
-        System.out.println("Name: "+ name + " Generatornumber: "+generatornumber);
         for (int i = airplanesize; i < airport.plainSize; i++) {
             Person p = new Person(airport, "Mensch Car", true, Airport.DEST_CAR_RENT);
             p.arrive(generatornumber);
